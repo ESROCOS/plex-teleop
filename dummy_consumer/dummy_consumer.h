@@ -2,8 +2,8 @@
 
 /* Declaration of the functions that have to be provided by the user */
 
-#ifndef __USER_CODE_H_kb_teleop__
-#define __USER_CODE_H_kb_teleop__
+#ifndef __USER_CODE_H_dummy_consumer__
+#define __USER_CODE_H_dummy_consumer__
 
 #include "C_ASN1_Types.h"
 
@@ -11,11 +11,9 @@
 extern "C" {
 #endif
 
-void kb_teleop_startup();
+void dummy_consumer_startup();
 
-void kb_teleop_PI_clock();
-
-extern void kb_teleop_RI_consume_mc(const asn1SccBase_commands_Motion2D *);
+void dummy_consumer_PI_consume_mc(const asn1SccBase_commands_Motion2D *);
 
 #ifdef __cplusplus
 }

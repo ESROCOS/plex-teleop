@@ -8,10 +8,13 @@
 PACKAGE interfaceview::IV::kb_teleop
 PUBLIC
 
+WITH interfaceview::IV::dummy_consumer;
 WITH Taste;
 WITH DataView;
 WITH TASTE_IV_Properties;
 SUBPROGRAM PI_clock
+PROPERTIES
+  Taste::Associated_Queue_Size => 1;
 END PI_clock;
 
 SUBPROGRAM IMPLEMENTATION PI_clock.others
@@ -19,14 +22,30 @@ PROPERTIES
   Compute_Execution_Time => 0 ms .. 15 ms;
 END PI_clock.others;
 
+SUBPROGRAM RI_consume_mc
+FEATURES
+  mc_command : IN PARAMETER DataView::Base_commands_Motion2D {
+    Taste::encoding => NATIVE;
+  };
+END RI_consume_mc;
+
+SUBPROGRAM IMPLEMENTATION RI_consume_mc.others
+END RI_consume_mc.others;
+
 SYSTEM kb_teleop
 FEATURES
   PI_clock : PROVIDES SUBPROGRAM ACCESS interfaceview::IV::kb_teleop::PI_clock.others {
-    Taste::coordinates => "113699 61731";
+    Taste::coordinates => "125352 106455";
     Taste::RCMoperationKind => cyclic;
     Taste::RCMperiod => 10 ms;
     Taste::Deadline => 10 ms;
     Taste::InterfaceName => "clock";
+  };
+  RI_consume_mc : REQUIRES SUBPROGRAM ACCESS interfaceview::IV::dummy_consumer::PI_consume_mc.others {
+    Taste::coordinates => "143619 116848";
+    Taste::RCMoperationKind => any;
+    Taste::InterfaceName => "consume_mc";
+    Taste::labelInheritance => "true";
   };
 PROPERTIES
   Source_Language => (CPP);
@@ -38,10 +57,50 @@ END kb_teleop.others;
 
 END interfaceview::IV::kb_teleop;
 
+PACKAGE interfaceview::IV::dummy_consumer
+PUBLIC
+
+WITH Taste;
+WITH DataView;
+WITH TASTE_IV_Properties;
+SUBPROGRAM PI_consume_mc
+FEATURES
+  mc_command : IN PARAMETER DataView::Base_commands_Motion2D {
+    Taste::encoding => NATIVE;
+  };
+PROPERTIES
+  Taste::Associated_Queue_Size => 10;
+END PI_consume_mc;
+
+SUBPROGRAM IMPLEMENTATION PI_consume_mc.others
+PROPERTIES
+  Compute_Execution_Time => 0 ms .. 10 ms;
+END PI_consume_mc.others;
+
+SYSTEM dummy_consumer
+FEATURES
+  PI_consume_mc : PROVIDES SUBPROGRAM ACCESS interfaceview::IV::dummy_consumer::PI_consume_mc.others {
+    Taste::coordinates => "178735 117319";
+    Taste::RCMoperationKind => sporadic;
+    Taste::RCMperiod => 10 ms;
+    Taste::Deadline => 10 ms;
+    Taste::InterfaceName => "consume_mc";
+  };
+PROPERTIES
+  Source_Language => (CPP);
+  Taste::Active_Interfaces => any;
+END dummy_consumer;
+
+SYSTEM IMPLEMENTATION dummy_consumer.others
+END dummy_consumer.others;
+
+END interfaceview::IV::dummy_consumer;
+
 PACKAGE interfaceview::IV
 PUBLIC
 
 WITH interfaceview::IV::kb_teleop;
+WITH interfaceview::IV::dummy_consumer;
 WITH Taste;
 WITH DataView;
 WITH TASTE_IV_Properties;
@@ -51,7 +110,14 @@ END interfaceview;
 SYSTEM IMPLEMENTATION interfaceview.others
 SUBCOMPONENTS
   kb_teleop : SYSTEM interfaceview::IV::kb_teleop::kb_teleop.others {
-    Taste::coordinates => "107399 61731 131965 93699";
+    Taste::coordinates => "119053 106455 143619 138423";
+  };
+  dummy_consumer : SYSTEM interfaceview::IV::dummy_consumer::dummy_consumer.others {
+    Taste::coordinates => "178735 108186 232435 139209";
+  };
+CONNECTIONS
+  dummy_consumer_PI_consume_mc_kb_teleop_RI_consume_mc : SUBPROGRAM ACCESS dummy_consumer.PI_consume_mc -> kb_teleop.RI_consume_mc {
+    Taste::coordinates => "143619 116848 163145 116848 163145 117319 178735 117319";
   };
 END interfaceview.others;
 
