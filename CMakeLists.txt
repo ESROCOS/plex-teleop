@@ -31,8 +31,8 @@ esrocos_init()
 ########### FOR INTEGRATION PROJECTS ##############
 
 #uncomment if you want to add dependencies for the build process (only required in integration projects)
-#esrocos_add_dependency(PARTITION <Name Of Partition>
-#                       MODULES   <PKG-Config findable module>[,secondmodule,thirdmodule...])
+esrocos_add_dependency(PARTITION x86_partition
+	               MODULES ncurses base_support eigen3)
 
 ########### FOR COMPONENT PROJECTS ################
 

@@ -2,4 +2,6 @@ ASNACN_DIR: dataview/
 PROJECT_NAME: plex_teleops
 deps:
 - types/base: ''
+- types/base_support:
 - ncurses: ''
+

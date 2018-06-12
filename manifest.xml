@@ -1,1 +1,1 @@
-<package><depend package="types/base" /><depend package="ncurses" /></package>
+<package><depend package="types/base" /><depend package="types/base_support" /><depend package="ncurses" /></package>
