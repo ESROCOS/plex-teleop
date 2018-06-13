@@ -31,8 +31,8 @@ esrocos_init()
 ########### FOR INTEGRATION PROJECTS ##############
 
 #uncomment if you want to add dependencies for the build process (only required in integration projects)
-#esrocos_add_dependency(PARTITION <Name Of Partition>
-#                       MODULES   <PKG-Config findable module>[,secondmodule,thirdmodule...])
+esrocos_add_dependency(PARTITION x86_partition
+	               MODULES ncurses base_support eigen3)
 
 ########### FOR COMPONENT PROJECTS ################
 
@@ -42,7 +42,7 @@ esrocos_export_function("kb_teleop" "plex/kb_teleop")
 #uncomment to export PKG-CONFIG-file
 esrocos_export_pkgconfig( VERSION 1.0
                           DESCRIPTION "none"
-                          REQUIRES ncurses
+                          REQUIRES ncurses base_support eigen3
                           LIBS ""
                           STATIC_LIBS "" 
                           C_FLAGS ""
