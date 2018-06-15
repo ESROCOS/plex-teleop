@@ -32,7 +32,7 @@ esrocos_init()
 
 #uncomment if you want to add dependencies for the build process (only required in integration projects)
 esrocos_add_dependency(PARTITION x86_partition
-	               MODULES ncurses base_support eigen3)
+	               MODULES ncurses base_support eigen3 base-typekit-gnulinux base-types)
 
 ########### FOR COMPONENT PROJECTS ################
 
@@ -42,7 +42,7 @@ esrocos_export_function("kb_teleop" "plex/kb_teleop")
 #uncomment to export PKG-CONFIG-file
 esrocos_export_pkgconfig( VERSION 1.0
                           DESCRIPTION "none"
-                          REQUIRES ncurses base_support eigen3
+			  REQUIRES ncurses base_support eigen3 base-typekit-gnulinux base-types
                           LIBS ""
                           STATIC_LIBS "" 
                           C_FLAGS ""
