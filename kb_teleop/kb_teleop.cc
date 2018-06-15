@@ -49,6 +49,10 @@ void kb_teleop_PI_clock()
 
     asn1SccBase_commands_Motion2D asn_mc;
     asn1SccBase_commands_Motion2D_toAsn1(asn_mc, base_mc);
+    
+    mvprintw(5,10,"got command: t= %f", base_mc.translation);
+    mvprintw(6,10,"got command: r= %f", base_mc.rotation);
+
     kb_teleop_RI_consume_mc(&asn_mc);
 
   } else {
