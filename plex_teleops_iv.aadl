@@ -22,15 +22,15 @@ PROPERTIES
   Compute_Execution_Time => 0 ms .. 15 ms;
 END PI_clock.others;
 
-SUBPROGRAM RI_consume_mc
+SUBPROGRAM RI_mc_out
 FEATURES
   mc_command : IN PARAMETER DataView::Base_commands_Motion2D {
     Taste::encoding => NATIVE;
   };
-END RI_consume_mc;
+END RI_mc_out;
 
-SUBPROGRAM IMPLEMENTATION RI_consume_mc.others
-END RI_consume_mc.others;
+SUBPROGRAM IMPLEMENTATION RI_mc_out.others
+END RI_mc_out.others;
 
 SYSTEM kb_teleop
 FEATURES
@@ -41,15 +41,16 @@ FEATURES
     Taste::Deadline => 10 ms;
     Taste::InterfaceName => "clock";
   };
-  RI_consume_mc : REQUIRES SUBPROGRAM ACCESS interfaceview::IV::dummy_consumer::PI_consume_mc.others {
+  RI_mc_out : REQUIRES SUBPROGRAM ACCESS interfaceview::IV::dummy_consumer::PI_consume_mc.others {
     Taste::coordinates => "143619 116848";
     Taste::RCMoperationKind => any;
-    Taste::InterfaceName => "consume_mc";
-    Taste::labelInheritance => "true";
+    Taste::InterfaceName => "mc_out";
+    Taste::labelInheritance => "false";
   };
 PROPERTIES
   Source_Language => (CPP);
   Taste::Active_Interfaces => any;
+  Source_Text => ("plex/kb_teleop/kb_teleop.zip");
 END kb_teleop;
 
 SYSTEM IMPLEMENTATION kb_teleop.others
@@ -105,6 +106,9 @@ WITH Taste;
 WITH DataView;
 WITH TASTE_IV_Properties;
 SYSTEM interfaceview
+PROPERTIES
+  Taste::dataView => ("DataView");
+  Taste::dataViewPath => ("plex_teleops_dv.aadl");
 END interfaceview;
 
 SYSTEM IMPLEMENTATION interfaceview.others
@@ -116,7 +120,7 @@ SUBCOMPONENTS
     Taste::coordinates => "178735 108186 232435 139209";
   };
 CONNECTIONS
-  dummy_consumer_PI_consume_mc_kb_teleop_RI_consume_mc : SUBPROGRAM ACCESS dummy_consumer.PI_consume_mc -> kb_teleop.RI_consume_mc {
+  dummy_consumer_PI_consume_mc_kb_teleop_RI_mc_out : SUBPROGRAM ACCESS dummy_consumer.PI_consume_mc -> kb_teleop.RI_mc_out {
     Taste::coordinates => "143619 116848 163145 116848 163145 117319 178735 117319";
   };
 END interfaceview.others;
