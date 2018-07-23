@@ -50,7 +50,7 @@ FEATURES
 PROPERTIES
   Source_Language => (CPP);
   Taste::Active_Interfaces => any;
-  Source_Text => ("plex/kb_teleop/kb_teleop.zip");
+  Source_Text => ("kb_teleop.zip");
 END kb_teleop;
 
 SYSTEM IMPLEMENTATION kb_teleop.others
