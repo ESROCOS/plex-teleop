@@ -15,7 +15,7 @@ void kb_teleop_startup();
 
 void kb_teleop_PI_clock();
 
-extern void kb_teleop_RI_consume_mc(const asn1SccBase_commands_Motion2D *);
+extern void kb_teleop_RI_mc_out(const asn1SccBase_commands_Motion2D *);
 
 #ifdef __cplusplus
 }

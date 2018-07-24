@@ -53,7 +53,7 @@ void kb_teleop_PI_clock()
     mvprintw(5,10,"got command: t= %f", base_mc.translation);
     mvprintw(6,10,"got command: r= %f", base_mc.rotation);
 
-    kb_teleop_RI_consume_mc(&asn_mc);
+    kb_teleop_RI_mc_out(&asn_mc);
 
   } else {
 	  
